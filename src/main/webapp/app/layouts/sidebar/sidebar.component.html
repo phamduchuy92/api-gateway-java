@@ -1,0 +1,90 @@
+<aside class="sidebar shadow-sm">
+  <div class="sidebar-profile d-flex flex-column justify-content-center pt-5 pb-3">
+    <div class="picture-wrapper mb-4">
+      <div class="user-picture m-auto text-primary">
+        <img src="../../../content/images/logo-jhipster.png" class="img-fluid" alt="" width="160px" />
+      </div>
+    </div>
+    <div class="profile-details text-center pb-4">
+      <p class="mb-0 text-uppercase name" jhiTranslate="global.title">Gateway Portal</p>
+      <small class="text-uppercase role" jhiTranslate="global.subtitle">F5 DNS Tool</small>
+    </div>
+  </div>
+  <nav class="sidebar-menu pt-3 pb-3">
+    <ul class="menu-items">
+      <ng-container *ngFor="let item of sidebarConfig">
+        <ng-container *ngIf="!item.children; then lvl1; else nested1"></ng-container>
+        <ng-template #lvl1>
+          <li class="nav-item" *jhiHasAnyAuthority="item.authorities">
+            <a routerLinkActive="active" href="javascript:void(0);" [routerLink]="item.path" class="nav-link">
+              <fa-icon *ngIf="item.icon" [icon]="item.icon" [fixedWidth]="true" [ngClass]="item.class"></fa-icon>
+              <span class="nav-link-text" *ngIf="item.jhiTranslate" [jhiTranslate]="item.jhiTranslate"></span>
+              <span class="nav-link-text" *ngIf="!item.jhiTranslate" [innerHTML]="item.name"></span>
+            </a>
+          </li>
+        </ng-template>
+        <ng-template #nested1>
+          <li class="nav-item" *jhiHasAnyAuthority="item.authorities">
+            <a
+              href="javascript:void(0);"
+              data-toggle="collapse"
+              routerLinkActive="active"
+              (click)="item.isCollapsed = !item.isCollapsed"
+              [attr.aria-expanded]="!item.isCollapsed"
+              [attr.aria-controls]="item.collapse"
+              class="nav-link dropdown-toggle"
+            >
+              <fa-icon *ngIf="item.icon" [icon]="item.icon" [fixedWidth]="true" [ngClass]="item.class"></fa-icon>
+              <span class="nav-link-text" *ngIf="item.jhiTranslate" [jhiTranslate]="item.jhiTranslate"></span>
+              <span class="nav-link-text" *ngIf="!item.jhiTranslate" [innerHTML]="item.name"></span>
+            </a>
+            <div id="{{ item.collapse }}" class="collapse pl-3" [(ngbCollapse)]="item.isCollapsed" [animation]="true">
+              <ul class="nav">
+                <ng-container *ngFor="let childItem of item.children">
+                  <ng-container *ngIf="!childItem.children; then lvl2; else nested2"></ng-container>
+                  <ng-template #lvl2>
+                    <li class="nav-item" *jhiHasAnyAuthority="childItem.authorities">
+                      <a routerLinkActive="active" href="javascript:void(0);" [routerLink]="childItem.path" class="nav-link">
+                        <fa-icon *ngIf="childItem.icon" [icon]="childItem.icon" [ngClass]="childItem.class"></fa-icon>
+                        <span class="nav-link-text" *ngIf="childItem.jhiTranslate" [jhiTranslate]="childItem.jhiTranslate"></span>
+                        <span class="nav-link-text" *ngIf="!childItem.jhiTranslate" [innerHTML]="childItem.name"></span>
+                      </a>
+                    </li>
+                  </ng-template>
+                  <ng-template #nested2>
+                    <li class="nav-item" *jhiHasAnyAuthority="childItem.authorities">
+                      <a
+                        href="javascript:void(0);"
+                        data-toggle="collapse"
+                        routerLinkActive="active"
+                        (click)="childItem.isCollapsed = !childItem.isCollapsed"
+                        [attr.aria-expanded]="!childItem.isCollapsed"
+                        [attr.aria-controls]="childItem.collapse"
+                        class="nav-link dropdown-toggle"
+                      >
+                        <fa-icon *ngIf="item.icon" [icon]="childItem.icon" [fixedWidth]="true" [ngClass]="childItem.class"></fa-icon>
+                        <span class="nav-link-text" *ngIf="childItem.jhiTranslate" [jhiTranslate]="childItem.jhiTranslate"></span>
+                        <span class="nav-link-text" *ngIf="!childItem.jhiTranslate" [innerHTML]="childItem.name"></span>
+                      </a>
+                      <div id="{{ childItem.collapse }}" class="collapse pl-3" [(ngbCollapse)]="childItem.isCollapsed" [animation]="true">
+                        <ul class="nav">
+                          <li *ngFor="let sub of childItem.children" class="nav-item">
+                            <a routerLinkActive="active" href="javascript:void(0);" [routerLink]="sub.path" class="nav-link">
+                              <fa-icon *ngIf="sub.icon" [icon]="sub.icon" [ngClass]="sub.class"></fa-icon>
+                              <span class="nav-link-text" *ngIf="sub.jhiTranslate" [jhiTranslate]="sub.jhiTranslate"></span>
+                              <span class="nav-link-text" *ngIf="!sub.jhiTranslate" [innerHTML]="sub.name"></span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ng-template>
+                </ng-container>
+              </ul>
+            </div>
+          </li>
+        </ng-template>
+      </ng-container>
+    </ul>
+  </nav>
+</aside>

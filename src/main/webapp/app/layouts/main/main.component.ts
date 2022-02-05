@@ -5,6 +5,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import dayjs from 'dayjs/esm';
 
 import { AccountService } from 'app/core/auth/account.service';
+import { LayoutService } from '../layout.service';
 
 @Component({
   selector: 'jhi-main',
@@ -18,7 +19,8 @@ export class MainComponent implements OnInit {
     private titleService: Title,
     private router: Router,
     private translateService: TranslateService,
-    rootRenderer: RendererFactory2
+    rootRenderer: RendererFactory2,
+    private layoutService: LayoutService
   ) {
     this.renderer = rootRenderer.createRenderer(document.querySelector('html'), null);
   }
@@ -38,6 +40,22 @@ export class MainComponent implements OnInit {
       dayjs.locale(langChangeEvent.lang);
       this.renderer.setAttribute(document.querySelector('html'), 'lang', langChangeEvent.lang);
     });
+  }
+
+  getClasses(): any {
+    const classes = {
+      'pinned-sidebar': this.layoutService.getSidebarStatus().isSidebarPinned,
+      'toggeled-sidebar': this.layoutService.getSidebarStatus().isSidebarToggeled,
+    };
+    return classes;
+  }
+
+  toggleSidebar(): void {
+    this.layoutService.toggleSidebar();
+  }
+
+  isAuthenticated(): boolean {
+    return this.accountService.isAuthenticated();
   }
 
   private getPageTitle(routeSnapshot: ActivatedRouteSnapshot): string {

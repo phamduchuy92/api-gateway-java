@@ -10,6 +10,7 @@ import { AccountService } from 'app/core/auth/account.service';
 import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
+import { LayoutService } from '../layout.service';
 
 @Component({
   selector: 'jhi-navbar',
@@ -33,7 +34,8 @@ export class NavbarComponent implements OnInit {
     private injector: Injector,
     private accountService: AccountService,
     private profileService: ProfileService,
-    private router: Router
+    private router: Router,
+    private layoutService: LayoutService
   ) {
     if (VERSION) {
       this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`;
@@ -73,6 +75,18 @@ export class NavbarComponent implements OnInit {
 
   toggleNavbar(): void {
     this.isNavbarCollapsed = !this.isNavbarCollapsed;
+  }
+
+  toggleSidebarPin(): void {
+    this.layoutService.toggleSidebarPin();
+  }
+
+  toggleSidebar(): void {
+    this.layoutService.toggleSidebar();
+  }
+
+  isAuthenticated(): boolean {
+    return this.accountService.isAuthenticated();
   }
 
   private loadModule(moduleType: Type<any>): void {

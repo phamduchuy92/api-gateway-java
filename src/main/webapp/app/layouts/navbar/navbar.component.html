@@ -1,9 +1,31 @@
-<nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md bg-dark">
-  <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
+<nav class="navbar navbar-expand-md fixed-top navbar-default flex-fill bg-light">
+  <!-- <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
     <span class="logo-img"></span>
     <span jhiTranslate="global.title" class="navbar-title">Gateway</span>
     <span class="navbar-version">{{ version }}</span>
+  </a> -->
+  <!-- sidebar toggler -->
+  <a
+    *ngIf="isAuthenticated()"
+    class="navbar-toggler d-lg-none ml-1"
+    href="javascript:void(0);"
+    aria-label="Toggle Sidebar"
+    (click)="toggleSidebar()"
+  >
+    <fa-icon icon="compass"></fa-icon>
   </a>
+  <!-- header -->
+  <div class="navbar-header pl-2 pr-2 ml-3 text-center">
+    <a routerLink="/" title="Home" rel="home" class="navbar-brand m-0 w-100">
+      <img src="../../../assets/logo/logo-emi.png" class="img-fluid h-100" alt="Emi Agency" />
+    </a>
+  </div>
+  <!-- left box -->
+  <ul class="navbar-nav flex-fill mt-1 align-items-center left-nav" *ngIf="isAuthenticated()">
+    <li class="nav-item navicon">
+      <a class="btn nav-link" (click)="toggleSidebarPin()"><fa-icon icon="bars"></fa-icon></a>
+    </li>
+  </ul>
   <a
     class="navbar-toggler d-lg-none"
     href="javascript:void(0);"
@@ -17,17 +39,17 @@
     <fa-icon icon="bars"></fa-icon>
   </a>
   <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="account !== null">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <ul class="navbar-nav ml-auto bg-light">
+      <!-- <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
           <span>
             <fa-icon icon="home"></fa-icon>
             <span jhiTranslate="global.menu.home">Home</span>
           </span>
         </a>
-      </li>
+      </li> -->
       <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-      <li
+      <!-- <li
         *ngSwitchCase="true"
         ngbDropdown
         class="nav-item dropdown pointer"
@@ -42,9 +64,9 @@
           </span>
         </a>
         <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
-          <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+
         </ul>
-      </li>
+      </li> -->
       <li
         *jhiHasAnyAuthority="'ROLE_ADMIN'"
         ngbDropdown

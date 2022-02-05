@@ -1,0 +1,36 @@
+- name: Menu1
+  path: /sidebar/menu1
+  icon: asterisk
+  class: text-orange
+  authorities: ['ROLE_ADMIN']
+- name: Menu2
+  path: /sidebar/menu2
+  icon: asterisk
+  class: text-blue
+  isCollapsed: true
+  authorities: ['ROLE_ADMIN']
+  children:
+    - name: Sub Menu2
+      path: /sidebar/sub-menu2
+      icon: asterisk
+      class: text-yellow
+      authorities: ['ROLE_ADMIN']
+- name: Menu3
+  path: /sidebar/menu3
+  icon: asterisk
+  class: text-blue
+  isCollapsed: true
+  authorities: ['ROLE_ADMIN']
+  children:
+    - name: Sub Menu3
+      path: /sidebar/sub-menu2
+      icon: asterisk
+      class: text-orange
+      authorities: ['ROLE_ADMIN']
+      isCollapsed: true
+      children:
+        - name: Sub Menu3_1
+          path: /sidebar/sub-menu3-1
+          icon: asterisk
+          class: text-orange
+          authorities: ['ROLE_ADMIN']
