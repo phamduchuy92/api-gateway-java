@@ -1,0 +1,82 @@
+<button *ngIf="to.create && !formControl.disabled" type="button" class="btn btn-primary btn-sm float-right" (click)="create()">
+  <fa-icon icon="plus"></fa-icon>&nbsp;
+  <span class="d-none d-md-inline">Create New</span>
+</button>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered" [ngClass]="columns.length > 5 ? 'small': ''">
+    <thead>
+      <tr>
+        <th><strong>No</strong></th>
+        <th
+          *ngFor="let c of columns; let ci = index;"
+          [style]="this.to.word-wrap ? 'word-wrap: break-word; white-space: normal !important;' : ''"
+        >
+          <strong *ngIf="c.jhiTranslate" [jhiTranslate]="c.jhiTranslate"></strong>
+          <strong *ngIf="!c.jhiTranslate" [innerHtml]="c.label"></strong>
+        </th>
+        <th *ngIf="!to.readonly && !formControl.disabled"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let val of rows; let i = index; trackBy: trackId">
+        <td [innerHTML]="i + 1"></td>
+        <td
+          *ngFor="let c of columnKeys"
+          [style]="this.to.word-wrap ? 'word-wrap: break-word; white-space: normal !important;' : ''"
+          [innerHTML]="renderCell(val, c)"
+        ></td>
+        <th class="text-right" *ngIf="!to.readonly && !formControl.disabled">
+          <div class="btn-group">
+            <button type="button" class="btn btn-success btn-sm" (click)="editItem(val)">
+              <fa-icon icon="pencil-alt"></fa-icon>&nbsp;
+              <span class="d-none d-md-inline">Edit</span>
+            </button>
+            <button class="btn btn-danger btn-sm" type="button" (click)="delete(val)">
+              <fa-icon icon="ban"></fa-icon>&nbsp;
+              <span class="d-none d-md-inline">Delete</span>
+            </button>
+          </div>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #deleteModal let-delmodal>
+  <div class="modal-header">
+    <h4 class="modal-title" jhiTranslate="entity.delete.title">Confirm delete operation</h4>
+    <button type="button" class="close" (click)="delmodal.dismiss()">&times;</button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to delete this item?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="delmodal.dismiss()">
+      <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+    </button>
+    <button id="jhi-confirm-delete-ticket" type="submit" class="btn btn-danger" (click)="delmodal.close()">
+      <fa-icon [icon]="'times'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.delete">Delete</span>
+    </button>
+  </div>
+</ng-template>
+<ng-template #formModal let-formmodal>
+  <form (ngSubmit)="formmodal.close()">
+    <div class="modal-header">
+      <h4 class="modal-title" [jhiTranslate]="to.addTitle || 'Add Item'"></h4>
+      <button type="button" class="close" (click)="formmodal.dismiss()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <formly-form [model]="modalModel" [fields]="field.fieldArray?.fieldGroup" [options]="options"></formly-form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="formmodal.dismiss()">
+        <fa-icon icon="ban"></fa-icon>&nbsp;
+        <span jhiTranslate="entity.action.cancel">Cancel</span>
+      </button>
+      <button id="jhi-confirm-delete-ticket" type="button" class="btn btn-danger" (click)="formmodal.close()">
+        <fa-icon icon="save"></fa-icon>&nbsp;
+        <span jhiTranslate="entity.action.save">Save</span>
+      </button>
+    </div>
+  </form>
+</ng-template>

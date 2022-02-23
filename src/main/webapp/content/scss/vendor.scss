@@ -10,6 +10,10 @@ eg $input-color: red;
 @import '~bootstrap/scss/bootstrap';
 
 /* jhipster-needle-scss-add-vendor JHipster will add new css style */
+/* material */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* css from metronic */
 @import './partials/variables';
 @import './partials/navbar';
 @import './partials/navbar.scss';

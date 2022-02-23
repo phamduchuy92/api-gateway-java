@@ -1,0 +1,30 @@
+<div class="row justify-content-center" *ngIf="!isLoading">
+  <div class="col-md-8">
+    <div *ngIf="model" class="card shadow">
+      <h2 class="card-header bg-info text-white" jhiTranslate="entity.detail.title" [translateValues]="{ name: model.name }"></h2>
+
+      <div class="card-body">
+        <jhi-alert-error></jhi-alert-error>
+
+        <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form"></formly-form>
+      </div>
+
+      <div class="card-footer">
+        <button type="button" (click)="previousState()" class="btn btn-secondary">
+          <fa-icon icon="arrow-left"></fa-icon><span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button
+          type="button"
+          [routerLink]="['/data', service, property, model.id ?? model._id, 'edit']"
+          class="btn btn-primary float-right"
+        >
+          <fa-icon icon="pencil-alt"></fa-icon><span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4" *ngIf="debug">
+    <pre [innerHTML]="model | json"></pre>
+  </div>
+</div>

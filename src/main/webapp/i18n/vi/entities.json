@@ -1,0 +1,9 @@
+{
+  "entity": {
+    "home": {
+      "title": "Thực thể",
+      "createLabel": "Tạo thực thể mới",
+      "createOrEditLabel": "Tạo hoặc sửa thực thể"
+    }
+  }
+}

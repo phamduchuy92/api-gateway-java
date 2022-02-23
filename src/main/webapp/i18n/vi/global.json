@@ -97,14 +97,24 @@
       "edit": "Sửa",
       "open": "Mở",
       "save": "Lưu",
-      "view": "Xem"
+      "view": "Xem",
+      "search": "Tìm",
+      "reset": "Đặt lại"
     },
     "detail": {
       "field": "Trường",
-      "value": "Giá trị"
+      "value": "Giá trị",
+      "title": "Xem [{{ name }}]"
     },
     "delete": {
-      "title": "Xác nhận hành động xóa"
+      "title": "Xác nhận hành động xóa",
+      "question": "Bạn có chắc bạn muốn xóa thực thể  [{{ name }}]?"
+    },
+    "home": {
+      "title": "Thực thể",
+      "refreshListLabel": "Refresh list",
+      "createLabel": "Tạo thực thể mới",
+      "createOrEditLabel": "Tạo hoặc sửa thực thể"
     },
     "validation": {
       "required": "Trường này bắt buộc phải nhập.",
@@ -136,5 +146,5 @@
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
     }
   },
-  "footer": "Đây là chân trang của bạn"
+  "footer": "Niềm tin của bạn là thành công của chúng tôi"
 }

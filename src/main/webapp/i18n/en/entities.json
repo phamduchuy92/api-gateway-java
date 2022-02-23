@@ -1,0 +1,9 @@
+{
+  "entity": {
+    "home": {
+      "title": "Entities",
+      "createLabel": "Create a new entity",
+      "createOrEditLabel": "Create or edit a entity"
+    }
+  }
+}

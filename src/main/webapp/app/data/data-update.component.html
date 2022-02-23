@@ -1,0 +1,28 @@
+<div class="row justify-content-center" *ngIf="!isLoading">
+  <div class="col-md-8">
+    <form novalidate (ngSubmit)="save()" [formGroup]="form">
+      <div *ngIf="model" class="card shadow">
+        <h2 class="card-header bg-primary text-white" [jhiTranslate]="property + '.home.createOrEditLabel'"></h2>
+
+        <div class="card-body">
+          <jhi-alert-error></jhi-alert-error>
+
+          <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form"></formly-form>
+        </div>
+
+        <div class="card-footer">
+          <button type="button" class="btn btn-secondary" (click)="previousState()">
+            <fa-icon icon="ban"></fa-icon><span jhiTranslate="entity.action.cancel">Cancel</span>
+          </button>
+
+          <button type="submit" [disabled]="form.invalid || isSaving" class="btn btn-primary float-right">
+            <fa-icon icon="save"></fa-icon><span jhiTranslate="entity.action.save">Save</span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-4" *ngIf="debug">
+    <pre [innerHTML]="model | json"></pre>
+  </div>
+</div>

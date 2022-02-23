@@ -99,14 +99,24 @@
       "edit": "Edit",
       "open": "Open",
       "save": "Save",
-      "view": "View"
+      "view": "View",
+      "search": "Search",
+      "reset": "Reset"
     },
     "detail": {
       "field": "Field",
-      "value": "Value"
+      "value": "Value",
+      "title": "View [{{ name }}]"
     },
     "delete": {
-      "title": "Confirm delete operation"
+      "title": "Confirm delete operation",
+      "question": "Are you sure you want to delete entity [{{ name }}]?"
+    },
+    "home": {
+      "title": "Entities",
+      "refreshListLabel": "Refresh list",
+      "createLabel": "Create a new entity",
+      "createOrEditLabel": "Create or edit a entity"
     },
     "validation": {
       "required": "This field is required.",
@@ -139,5 +149,5 @@
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
     }
   },
-  "footer": "This is your footer"
+  "footer": "Your trust is our success"
 }
