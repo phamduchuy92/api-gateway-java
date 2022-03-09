@@ -3,9 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 
 import * as _ from 'lodash';
 import { FormGroup } from '@angular/forms';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { DEBUG_INFO_ENABLED } from 'app/app.constants';
+import { AccountService } from 'app/core/auth/account.service';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'jhi-data-detail',
@@ -29,12 +31,13 @@ export class DataDetailComponent implements OnInit, AfterContentChecked {
   };
   debug = DEBUG_INFO_ENABLED;
 
-  constructor(private activatedRoute: ActivatedRoute) {}
+  constructor(private activatedRoute: ActivatedRoute, private accountService: AccountService) {}
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.activatedRoute.data
-      .pipe(
+    combineLatest(
+      this.accountService.identity().pipe(tap(account => (this.options.formState.account = account))),
+      this.activatedRoute.data.pipe(
         map(({ config, model }) => {
           // get model
           this.model = model;
@@ -43,9 +46,10 @@ export class DataDetailComponent implements OnInit, AfterContentChecked {
           this.property = _.get(config, 'config.property', config.property);
           // formly
           this.fields = _.get(config, 'config.fields', []);
+          this.options.formState.mainModel = this.model;
         })
       )
-      .subscribe(() => (this.isLoading = false));
+    ).subscribe(() => (this.isLoading = false));
   }
 
   ngAfterContentChecked(): void {
