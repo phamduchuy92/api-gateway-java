@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
 import { FormControl } from '@angular/forms';
 import { DATE_FORMAT } from 'app//config/input.constants';
-import * as moment from 'moment';
+import moment from 'moment';
 import * as _ from 'lodash';
 
 @Component({

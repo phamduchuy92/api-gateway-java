@@ -70,11 +70,9 @@ export class ButtonTypeComponent extends FieldType {
 
   private onSuccess(res: any): void {
     this.form.get(_.toString(this.key))?.setValue(res);
-    this.alertService.success(this.to.successMsg || res.body.message || res.statusText);
   }
 
   private onError(err: HttpErrorResponse): void {
     this.form.get(_.toString(this.key))?.setValue(err);
-    this.alertService.error(this.to.errorMsg || err.error.message || err.error.detail || err.error.error || err.message || err.statusText);
   }
 }

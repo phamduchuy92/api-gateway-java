@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { FieldType } from '@ngx-formly/core';
 import * as _ from 'lodash';
 @Component({
@@ -8,7 +9,7 @@ import * as _ from 'lodash';
       [items]="to.items"
       [bindValue]="to.key"
       [bindLabel]="to.val"
-      [placeholder]="to.placeholder"
+      [placeholder]="to.placeholder!"
       [multiple]="true"
       [hideSelected]="to.hideSelected"
       [addTag]="true"
@@ -19,6 +20,7 @@ import * as _ from 'lodash';
   `,
 })
 export class TagsTypeComponent extends FieldType {
+  formControl!: FormControl;
   defaultOptions = {
     wrappers: ['form-group'],
   };

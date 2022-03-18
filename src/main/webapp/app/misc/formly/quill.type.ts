@@ -4,6 +4,7 @@ import { FieldType } from '@ngx-formly/core';
 import { HttpClient } from '@angular/common/http';
 
 import * as _ from 'lodash';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'jhi-formly-field-quill',
@@ -23,6 +24,7 @@ import * as _ from 'lodash';
   `,
 })
 export class QuillTypeComponent extends FieldType {
+  formControl!: FormControl;
   defaultOptions = {
     wrappers: ['form-group'],
     templateOptions: { styles: { height: '150px' } },

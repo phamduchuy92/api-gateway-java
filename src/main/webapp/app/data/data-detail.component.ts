@@ -13,7 +13,7 @@ import { combineLatest } from 'rxjs';
   selector: 'jhi-data-detail',
   templateUrl: './data-detail.component.html',
 })
-export class DataDetailComponent implements OnInit, AfterContentChecked {
+export class DataDetailComponent implements OnInit {
   _ = _;
   // state
   isLoading = false;
@@ -47,13 +47,16 @@ export class DataDetailComponent implements OnInit, AfterContentChecked {
           // formly
           this.fields = _.get(config, 'config.fields', []);
           this.options.formState.mainModel = this.model;
+        }),
+        tap(() => {
+          this.fields.push({
+            hooks: {
+              afterContentInit: () => this.form.disable({ emitEvent: false }),
+            },
+          });
         })
       )
     ).subscribe(() => (this.isLoading = false));
-  }
-
-  ngAfterContentChecked(): void {
-    this.form.disable({ emitEvent: false });
   }
 
   previousState(): void {

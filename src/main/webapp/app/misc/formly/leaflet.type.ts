@@ -3,6 +3,7 @@ import { FieldType } from '@ngx-formly/core';
 import { HttpClient } from '@angular/common/http';
 import * as _ from 'lodash';
 import * as L from 'leaflet';
+import { FormControl } from '@angular/forms';
 
 // Display a map using leaflet js
 // templateOptions:
@@ -18,6 +19,7 @@ import * as L from 'leaflet';
   `,
 })
 export class LeafletTypeComponent extends FieldType implements AfterViewInit {
+  formControl!: FormControl;
   map: any;
   geojson: any;
   info: any;
@@ -36,7 +38,7 @@ export class LeafletTypeComponent extends FieldType implements AfterViewInit {
     }
   }
 
-  onMapClick(e) {
+  onMapClick(e: { latlng: any }) {
     // alert('You clicked the map at ' + e.latlng);
     // console.log('You clicked the map at ', e);
     this.formControl.setValue(e.latlng);
@@ -52,7 +54,7 @@ export class LeafletTypeComponent extends FieldType implements AfterViewInit {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors',
     }).addTo(this.map);
-    this.map.on('click', e => this.onMapClick(e));
+    this.map.on('click', (e: any) => this.onMapClick(e));
 
     // Add highlightFeature
     if (this.to.geojson) {

@@ -4,10 +4,10 @@ import { FieldArrayType } from '@ngx-formly/core';
 @Component({
   selector: 'jhi-formly-tabset',
   template: `
-    <div [ngClass]="field.className">
+    <div [ngClass]="field.className!">
       <ul ngbNav #nav="ngbNav" [ngClass]="'nav-' + (to.type || 'tabs') + ' nav-' + (to.justify || 'justified')">
-        <li ngbNavItem *ngFor="let panel of field.fieldGroup; let i = index" [disabled]="panel.templateOptions.disabled">
-          <a ngbNavLink [innerHtml]="panel.templateOptions.label"></a>
+        <li ngbNavItem *ngFor="let panel of field.fieldGroup; let i = index" [disabled]="panel.templateOptions?.disabled!">
+          <a ngbNavLink [innerHtml]="panel.templateOptions?.label"></a>
           <ng-template ngbNavContent>
             <div [ngClass]="panel.fieldGroupClassName || 'card'">
               <div [ngClass]="panel.className || 'card-body'">

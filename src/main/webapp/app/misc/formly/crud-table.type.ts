@@ -20,7 +20,7 @@ import * as jsyaml from 'js-yaml';
 })
 export class CrudTableTypeComponent extends FieldArrayType implements OnInit, OnDestroy {
   isReady = false;
-  rows: any[] = [];
+  rows: any[] | null = [];
   columns: any[] = [];
   columnsMap: any = {};
   columnKeys: string[] = [];
@@ -211,11 +211,11 @@ export class CrudTableTypeComponent extends FieldArrayType implements OnInit, On
       return _.map(val, v => _.get(this.reference, [col, v], v));
     } else if (_.isPlainObject(val)) {
       // support for tree type
-      if (_.map(plainToFlattenObject(val)).every(e => typeof e == 'boolean')) {
-        const parsedVal = _.filter(_.entries(plainToFlattenObject(val)), e => e.some(o => o == true));
+      if (_.map(plainToFlattenObject(val)).every(e => typeof e === 'boolean')) {
+        const parsedVal = _.filter(_.entries(plainToFlattenObject(val)), e => e.some(o => o === true));
         let res = {};
         _.forEach(parsedVal, (v, k) => _.assign(res, _.set(res, v[0], 'tree')));
-        return `<pre>${jsyaml.dump(res).replaceAll(': tree', '')}</pre>`;
+        return `<pre>${jsyaml.dump(res).replace(/: tree/gi, '')}</pre>`;
       }
       return `<pre>${jsyaml.dump(val)}</pre>`;
     }

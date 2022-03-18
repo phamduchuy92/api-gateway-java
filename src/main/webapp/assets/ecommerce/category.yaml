@@ -1,0 +1,24 @@
+apiEndpoint: /services/ecommerce/api/categories
+predicate: id
+ascending: false
+queryParams:
+columns:
+  - property: name
+    label: Name
+    sortBy: name
+    searchBy: name
+  - property: description
+    label: Description
+    sortBy: description
+    searchBy: description
+fields:
+  - key: name
+    type: input
+    templateOptions:
+      label: Name
+      required: true
+  - key: description
+    type: textarea
+    templateOptions:
+      label: Description
+      rows: 3

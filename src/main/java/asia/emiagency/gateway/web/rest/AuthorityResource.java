@@ -2,11 +2,13 @@ package asia.emiagency.gateway.web.rest;
 
 import asia.emiagency.gateway.domain.Authority;
 import asia.emiagency.gateway.repository.AuthorityRepository;
+import asia.emiagency.gateway.security.AuthoritiesConstants;
 import asia.emiagency.gateway.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -17,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -53,6 +56,7 @@ public class AuthorityResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/authorities")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public Mono<ResponseEntity<Authority>> createAuthority(@Valid @RequestBody Authority authority) throws URISyntaxException {
         log.debug("REST request to save Authority : {}", authority);
         if (authority.getName() != null) {
@@ -83,6 +87,7 @@ public class AuthorityResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/authorities/{id}")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public Mono<ResponseEntity<Authority>> updateAuthority(
         @PathVariable(value = "id", required = false) final String id,
         @Valid @RequestBody Authority authority
@@ -126,6 +131,7 @@ public class AuthorityResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/authorities/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public Mono<ResponseEntity<Authority>> partialUpdateAuthority(
         @PathVariable(value = "id", required = false) final String id,
         @NotNull @RequestBody Authority authority
@@ -175,7 +181,7 @@ public class AuthorityResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of authorities in body.
      */
     @GetMapping("/authorities")
-    public Mono<ResponseEntity<List<Authority>>> getAllCategories(
+    public Mono<ResponseEntity<List<String>>> getAllCategories(
         @org.springdoc.api.annotations.ParameterObject Pageable pageable,
         ServerHttpRequest request
     ) {
@@ -192,7 +198,7 @@ public class AuthorityResource {
                             new PageImpl<>(countWithEntities.getT2(), pageable, countWithEntities.getT1())
                         )
                     )
-                    .body(countWithEntities.getT2());
+                    .body(countWithEntities.getT2().stream().map(Authority::getName).collect(Collectors.toList()));
             });
     }
 
@@ -216,6 +222,7 @@ public class AuthorityResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/authorities/{id}")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public Mono<ResponseEntity<Void>> deleteAuthority(@PathVariable String id) {
         log.debug("REST request to delete Authority : {}", id);

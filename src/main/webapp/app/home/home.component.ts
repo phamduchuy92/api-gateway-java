@@ -23,9 +23,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
       .subscribe(account => (this.account = account));
-
-    // eslint-disable-next-line no-console
-    console.log('here', this.isAuthenticated());
     if (!this.isAuthenticated()) {
       this.login();
     }

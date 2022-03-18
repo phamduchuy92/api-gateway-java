@@ -1,0 +1,9 @@
+{
+  "category": {
+    "home": {
+      "title": "Categories",
+      "createLabel": "Create a new category",
+      "createOrEditLabel": "Create or edit a category"
+    }
+  }
+}

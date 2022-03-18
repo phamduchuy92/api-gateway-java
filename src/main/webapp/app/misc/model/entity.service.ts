@@ -65,7 +65,7 @@ export class EntityService {
       const entityCollectionIdentifiers = entityCollection.map(entityItem => entityItem.id!);
       const entitiesToAdd = entities.filter(entityItem => {
         const entityIdentifier = entityItem.id;
-        if (entityIdentifier == null || entityCollectionIdentifiers.includes(entityIdentifier)) {
+        if (entityIdentifier === null || entityCollectionIdentifiers.includes(entityIdentifier)) {
           return false;
         }
         entityCollectionIdentifiers.push(entityIdentifier);

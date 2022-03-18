@@ -2,6 +2,7 @@
   "entity": {
     "home": {
       "title": "Thực thể",
+      "refreshListLabel": "Refresh list",
       "createLabel": "Tạo thực thể mới",
       "createOrEditLabel": "Tạo hoặc sửa thực thể"
     }

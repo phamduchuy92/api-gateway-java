@@ -15,10 +15,7 @@ import { forkJoin } from 'rxjs';
     <pre>{{ formControl.value | json }}</pre>
     <button type="button" class="btn btn-primary" (click)="upload()" [innerHTML]="to.label"></button>
     <ng-template *ngFor="let value of values">
-      <a [href]="getFileSrc(value)" [class]="to.className" target="_blank" *ngIf="to.hidden == true" [innerHTML]="value"></a>
-    </ng-template>
-    <ng-template *ngFor="let value of values">
-      <div class="file-viewer" *ngIf="to.template" [innerHtml]="getTemplate(value)"></div>
+      <a [href]="getFileSrc(value)" [class]="to.className" target="_blank" *ngIf="to.hidden === true" [innerHTML]="value"></a>
     </ng-template>
     <div class="row" *ngIf="!to.template && formControl.value && to.hidden != true">
       <div class="col-md-3 mb-3" *ngFor="let value of values; let i = index">
@@ -36,7 +33,7 @@ import { forkJoin } from 'rxjs';
           (click)="removeFile(i)"
           class="btn btn-danger btn-block"
           [disabled]="to.disabled"
-          [hidden]="to.hidden == true ? true : false"
+          [hidden]="to.hidden ? true : false"
         >
           <fa-icon icon="times"></fa-icon>&nbsp; Remove
         </button>
@@ -58,7 +55,7 @@ import { forkJoin } from 'rxjs';
                 [name]="'name' + i"
                 [value]="true"
                 [(ngModel)]="static.checked"
-                [checked]="static.checked == true"
+                [checked]="static.checked === true"
                 (click)="selectOne(static)"
                 *ngIf="!to.multiple"
               />
@@ -100,7 +97,7 @@ import { forkJoin } from 'rxjs';
   `,
 })
 export class LibraryTypeComponent extends FieldType implements OnInit {
-  @ViewChild('uploadModal', { static: true }) uploadModal: NgbModalRef;
+  @ViewChild('uploadModal', { static: true }) uploadModal!: NgbModalRef;
   assets: any[] = [];
   statics: any[] = [];
   bucketName = '';
@@ -166,7 +163,7 @@ export class LibraryTypeComponent extends FieldType implements OnInit {
   upload(): void {
     this.modalService.open(this.uploadModal, { size: 'xl' }).result.then(
       () => {
-        if (this.to.multiple == true) {
+        if (this.to.multiple === true) {
           this.formControl.setValue(this.postProcess(_.filter(this.assets, e => e.checked)));
         } else {
           this.formControl.setValue(_.toString(this.postProcess(_.filter(this.assets, e => e.checked))));
@@ -179,10 +176,10 @@ export class LibraryTypeComponent extends FieldType implements OnInit {
 
   // postProcess extract the file ID from the key
   postProcess(filesInfo: any): string[] {
-    if (filesInfo.every(e => _.isString(e))) {
+    if (filesInfo.every((e: any) => _.isString(e))) {
       return filesInfo;
     }
-    if (this.to.key && _.isString(this.to.key) && filesInfo.every(e => _.isString(e[this.to.key]))) {
+    if (this.to.key && _.isString(this.to.key) && filesInfo.every((e: { [x: string]: any }) => _.isString(e[this.to.key]))) {
       return _.map(filesInfo, this.to.key);
     }
     if (this.to.map) {
@@ -196,7 +193,7 @@ export class LibraryTypeComponent extends FieldType implements OnInit {
   }
 
   removeFile(idx: number): void {
-    if (this.to.multiple == true) {
+    if (this.to.multiple === true) {
       const arr = this.formControl.value;
       if (arr.length > 1) {
         arr.splice(idx, 1);
@@ -222,7 +219,7 @@ export class LibraryTypeComponent extends FieldType implements OnInit {
   convertToArray(vals: any): void {
     if (_.isArray(vals)) {
       this.values = vals;
-    } else if (vals == null) {
+    } else if (vals === null) {
       this.values = [];
     } else {
       this.values = [vals];
@@ -235,14 +232,14 @@ export class LibraryTypeComponent extends FieldType implements OnInit {
     if (_.isArray(this.formControl.value) && this.to.multiple) {
       _.forEach(this.assets, e => {
         _.forEach(this.formControl.value, el => {
-          if (e[this.to.key] == el) {
+          if (e[this.to.key] === el) {
             e.checked = true;
           }
         });
       });
     } else if (!this.to.multiple) {
       _.forEach(this.assets, e => {
-        if (e[this.to.key] == this.formControl.value) {
+        if (e[this.to.key] === this.formControl.value) {
           e.checked = true;
         }
       });

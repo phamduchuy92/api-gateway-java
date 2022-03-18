@@ -2,6 +2,7 @@
   "entity": {
     "home": {
       "title": "Entities",
+      "refreshListLabel": "Refresh list",
       "createLabel": "Create a new entity",
       "createOrEditLabel": "Create or edit a entity"
     }

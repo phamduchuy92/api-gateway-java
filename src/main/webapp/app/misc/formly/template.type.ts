@@ -34,7 +34,7 @@ export class TemplateTypeComponent extends FieldType implements OnInit {
           this.to.innerHTML = res;
         }
         if (this.to.store) {
-          this.options.formState[this.to.store] = res;
+          this.options!.formState[this.to.store] = res;
         }
       });
     }

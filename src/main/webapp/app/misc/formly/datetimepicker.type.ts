@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
-import { FormControl } from '@angular/forms';
+import { AbstractControl, FormControl } from '@angular/forms';
 import { DATE_FORMAT, DATE_TIME_FORMAT } from 'app//config/input.constants';
-import * as moment from 'moment';
+import moment from 'moment';
 import { NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateDayjsAdapter } from 'app//config/datepicker-adapter';
 
@@ -46,6 +46,7 @@ import { NgbDateDayjsAdapter } from 'app//config/datepicker-adapter';
   providers: [{ provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter }],
 })
 export class DatetimeTypeComponent extends FieldType implements OnInit {
+  formControl!: FormControl;
   defaultOptions = {
     wrappers: ['form-group'],
   };

@@ -1,0 +1,25 @@
+apiEndpoint: /services/ecommerce/api/shippers
+predicate: id
+ascending: false
+queryParams:
+columns:
+  - property: name
+    label: Name
+    sortBy: name
+    searchBy: name
+  - property: phoneNumber
+    label: Phone Number
+    sortBy: phoneNumber
+    searchBy: phoneNumber
+fields:
+  - fieldGroupClassName: row
+    fieldGroup:
+      - key: name
+        type: input
+        templateOptions:
+          label: Name
+          required: true
+      - key: phoneNumber
+        type: input
+        templateOptions:
+          label: Phone Number

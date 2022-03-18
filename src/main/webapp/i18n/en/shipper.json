@@ -1,0 +1,9 @@
+{
+  "shipper": {
+    "home": {
+      "title": "Shippers",
+      "createLabel": "Create a new shipper",
+      "createOrEditLabel": "Create or edit a shipper"
+    }
+  }
+}

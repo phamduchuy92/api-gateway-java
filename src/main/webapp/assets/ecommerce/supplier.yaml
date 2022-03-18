@@ -1,0 +1,58 @@
+apiEndpoint: /services/ecommerce/api/suppliers
+predicate: id
+ascending: false
+queryParams:
+columns:
+  - property: name
+    label: Name
+    sortBy: name
+    searchBy: name
+  - property: contactName
+    label: Contact Name
+    sortBy: contactName
+    searchBy: contactName
+  - property: phoneNumber
+    label: Phone Number
+    sortBy: phoneNumber
+    searchBy: phoneNumber
+fields:
+  - key: name
+    type: input
+    templateOptions:
+      label: Name
+      required: true
+  - fieldGroupClassName: row
+    fieldGroup:
+      - key: contactName
+        type: input
+        className: col-md-6
+        templateOptions:
+          label: Contact Name
+      - key: phoneNumber
+        type: input
+        className: col-md-6
+        templateOptions:
+          label: Phone Number
+  - fieldGroupClassName: row
+    fieldGroup:
+      - key: address
+        type: input
+        className: col-md-6
+        templateOptions:
+          label: Address
+      - key: city
+        type: input
+        className: col-md-2
+        templateOptions:
+          label: City
+      - key: country
+        type: input
+        className: col-md-2
+        templateOptions:
+          label: Country
+      - key: postalCode
+        type: input
+        className: col-md-2
+        templateOptions:
+          label: Postal Code
+  

@@ -128,3 +128,10 @@ jhipster:
 # ===================================================================
 
 # application:
+aws:
+  s3:
+    region: sa-east-1
+    endpoint: http://localhost:9000
+    accessKeyId: minioadmin
+    secretAccessKey: minioadmin
+    bucket: bucket1

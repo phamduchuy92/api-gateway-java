@@ -1,6 +1,7 @@
 package asia.emiagency.gateway;
 
 import asia.emiagency.gateway.config.ApplicationProperties;
+import asia.emiagency.gateway.config.S3ClientProperties;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
@@ -19,7 +20,7 @@ import tech.jhipster.config.DefaultProfileUtil;
 import tech.jhipster.config.JHipsterConstants;
 
 @SpringBootApplication
-@EnableConfigurationProperties({ LiquibaseProperties.class, ApplicationProperties.class })
+@EnableConfigurationProperties({ LiquibaseProperties.class, ApplicationProperties.class, S3ClientProperties.class })
 public class GatewayApp {
 
     private static final Logger log = LoggerFactory.getLogger(GatewayApp.class);

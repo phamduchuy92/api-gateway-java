@@ -15,7 +15,7 @@ import { map, startWith } from 'rxjs/operators';
         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
       </mat-chip>
       <input
-        [placeholder]="to.placeholder"
+        [placeholder]="to.placeholder!"
         #itemInput
         [formControl]="itemControl"
         [matAutocomplete]="auto"
@@ -44,7 +44,7 @@ export class ChipsTypeComponent extends FieldType {
   itemControl = new FormControl();
   filteredItems: Observable<string[]>;
 
-  @ViewChild('itemInput') itemInput: ElementRef<HTMLInputElement>;
+  @ViewChild('itemInput') itemInput!: ElementRef<HTMLInputElement>;
 
   constructor() {
     super();
@@ -73,7 +73,7 @@ export class ChipsTypeComponent extends FieldType {
 
     if (index > 0) {
       this.formControl.setValue(this.formControl.value.splice(index, 1));
-    } else if (index == 0) {
+    } else if (index === 0) {
       this.formControl.setValue([]);
     }
   }
@@ -89,6 +89,6 @@ export class ChipsTypeComponent extends FieldType {
     if (!this.to.filterdItems) return [];
     const filterValue = value.toLowerCase();
 
-    return this.to.filterdItems.filter(item => item.toLowerCase().indexOf(filterValue) === 0);
+    return this.to.filterdItems.filter((item: string) => item.toLowerCase().indexOf(filterValue) === 0);
   }
 }

@@ -16,7 +16,7 @@ import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
       (change)="addFile($event)"
       class="custom-input"
       [disabled]="to.disabled"
-      [hidden]="to.hidden == true ? true : false"
+      [hidden]="to.hidden === true ? true : false"
       multiple
     />
     <ng-template *ngFor="let value of formControl.value">
@@ -24,7 +24,7 @@ import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
         [href]="getFileSrc(value)"
         [ngClass]="to.className ? to.className : ''"
         target="_blank"
-        *ngIf="to.hidden == true"
+        *ngIf="to.hidden === true"
         [innerHTML]="value"
       ></a>
     </ng-template>
@@ -48,12 +48,7 @@ import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
             style="height: 200px; object-fit: cover;"
           />
         </a>
-        <button
-          (click)="removeFile(i)"
-          class="btn btn-danger btn-block ml-1"
-          [disabled]="to.disabled"
-          [hidden]="to.hidden == true ? true : false"
-        >
+        <button (click)="removeFile(i)" class="btn btn-danger btn-block ml-1" [disabled]="to.disabled" [hidden]="to.hidden ? true : false">
           <fa-icon icon="times"></fa-icon>&nbsp; Remove
         </button>
       </div>
@@ -145,10 +140,10 @@ export class FileGridfsTypeComponent extends FieldType {
 
   // postProcess extract the file ID from the key
   postProcess(filesInfo: any): string[] {
-    if (filesInfo.every(e => _.isString(e))) {
+    if (filesInfo.every((e: any) => _.isString(e))) {
       return filesInfo;
     }
-    if (this.to.key && _.isString(this.to.key) && filesInfo.every(e => _.isString(e[this.to.key]))) {
+    if (this.to.key && _.isString(this.to.key) && filesInfo.every((e: { [x: string]: any }) => _.isString(e[this.to.key]))) {
       return _.map(filesInfo, this.to.key);
     }
     if (this.to.map) {

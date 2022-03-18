@@ -14,15 +14,15 @@ import { catchError, filter, map, tap } from 'rxjs/operators';
  * Node for to-do item
  */
 export class TodoItemNode {
-  children: TodoItemNode[];
-  item: string;
+  children!: TodoItemNode[];
+  item!: string;
 }
 
 /** Flat to-do item node with expandable and level information */
 export class TodoItemFlatNode {
-  item: string;
-  level: number;
-  expandable: boolean;
+  item!: string;
+  level!: number;
+  expandable!: boolean;
 }
 
 /**
@@ -81,7 +81,7 @@ const TREE_DATA = {
           [disabled]="to.disabled"
           >{{ node.item }}</mat-checkbox
         >
-        <button mat-icon-button (click)="addNewItem(node)" *ngIf="to.isExpandable == true">
+        <button mat-icon-button (click)="addNewItem(node)" *ngIf="to.isExpandable === true">
           <mat-icon>add</mat-icon>
         </button>
       </mat-tree-node>
@@ -92,7 +92,7 @@ export class TreeTypeComponent extends FieldType implements OnInit, OnDestroy, A
   defaultOptions = {
     wrappers: ['form-group'],
   };
-  @ViewChild('tree') tree: ElementRef;
+  @ViewChild('tree') tree!: ElementRef;
 
   /** Map from flat node to nested node. This helps us finding the nested node to be modified */
   flatNodeMap = new Map<TodoItemFlatNode, TodoItemNode>();
@@ -106,11 +106,11 @@ export class TreeTypeComponent extends FieldType implements OnInit, OnDestroy, A
   /** The new item's name */
   newItemName = '';
 
-  treeControl: FlatTreeControl<TodoItemFlatNode>;
+  treeControl!: FlatTreeControl<TodoItemFlatNode>;
 
-  treeFlattener: MatTreeFlattener<TodoItemNode, TodoItemFlatNode>;
+  treeFlattener!: MatTreeFlattener<TodoItemNode, TodoItemFlatNode>;
 
-  dataSource: MatTreeFlatDataSource<TodoItemNode, TodoItemFlatNode>;
+  dataSource!: MatTreeFlatDataSource<TodoItemNode, TodoItemFlatNode>;
 
   /** The selection for checklist */
   checklistSelection = new SelectionModel<TodoItemFlatNode>(true /* multiple */);
@@ -133,7 +133,7 @@ export class TreeTypeComponent extends FieldType implements OnInit, OnDestroy, A
 
     this.dataChange.subscribe(data => {
       this.dataSource.data = data;
-      if (this.to.isCollapsed == true) {
+      if (this.to.isCollapsed === true) {
         this.treeControl.expandAll();
       }
     });
@@ -409,10 +409,10 @@ export class TreeTypeComponent extends FieldType implements OnInit, OnDestroy, A
             }
 
             // show defaults
-            if (_.get(origin, `${prefix}.${child}`) == true) {
+            if (_.get(origin, `${prefix}.${child}`) === true) {
               if (data && nestedNodeMap) {
                 nestedNodeMap.forEach(v => {
-                  if (v.item == child) checklistSelection.select(v);
+                  if (v.item === child) checklistSelection.select(v);
                 });
               }
             }
@@ -435,10 +435,10 @@ export class TreeTypeComponent extends FieldType implements OnInit, OnDestroy, A
       _.forEach(value, (v, k) => {
         if (_.isObject(v)) this.parseNestedSelected(v, this.checklistSelection.selected, k, value);
         else {
-          if (_.get(value, `${k}`) == true) {
+          if (_.get(value, `${k}`) === true) {
             if (data) {
               nestedNodeMap.forEach(e => {
-                if (e.item == k) checklistSelection.select(e);
+                if (e.item === k) checklistSelection.select(e);
               });
             }
           }
@@ -455,7 +455,7 @@ export class TreeTypeComponent extends FieldType implements OnInit, OnDestroy, A
 
       this.dataChange.subscribe(data => {
         this.dataSource.data = data;
-        if (this.to.isCollapsed == true) {
+        if (this.to.isCollapsed === true) {
           this.treeControl.expandAll();
         }
       });

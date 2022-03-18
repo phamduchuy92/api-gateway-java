@@ -200,3 +200,32 @@ ui bootstrap tweaks
 }
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */
+.text-blue {
+  color: $blue;
+}
+.text-indigo {
+  color: $indigo;
+}
+.text-purple {
+  color: $purple;
+}
+.text-red {
+  color: $red;
+}
+.text-orange {
+  color: $orange;
+}
+.text-yellow {
+  color: $yellow;
+}
+.text-green {
+  color: $green;
+}
+.text-teal {
+  color: $teal;
+}
+.text-cyan {
+  color: $cyan;
+}
+
+@import '~@ng-select/ng-select/themes/default.theme.css';

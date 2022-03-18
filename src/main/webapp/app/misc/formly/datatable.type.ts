@@ -16,10 +16,7 @@ import * as _ from 'lodash';
         <thead>
           <tr>
             <th><strong>No</strong></th>
-            <th
-              *ngFor="let c of columns; let ci = index"
-              [style]="this.to.word - wrap ? 'word-wrap: break-word; white-space: normal !important;' : ''"
-            >
+            <th *ngFor="let c of columns; let ci = index" style="word-wrap: break-word; white-space: normal !important;">
               <strong *ngIf="c.jhiTranslate" [jhiTranslate]="c.jhiTranslate"></strong>
               <strong *ngIf="!c.jhiTranslate" [innerHtml]="c.label"></strong>
             </th>
@@ -31,7 +28,7 @@ import * as _ from 'lodash';
             <td [innerHTML]="i + 1"></td>
             <td
               *ngFor="let c of columnKeys"
-              [style]="this.to.word - wrap ? 'word-wrap: break-word; white-space: normal !important;' : ''"
+              style="word-wrap: break-word; white-space: normal !important;"
               [innerHTML]="_.get(val, c, '')"
             ></td>
             <th class="text-right" *ngIf="!to.readonly && !formControl.disabled">
@@ -74,7 +71,7 @@ import * as _ from 'lodash';
           <button type="button" class="close" (click)="formmodal.dismiss()">&times;</button>
         </div>
         <div class="modal-body">
-          <formly-form [model]="modalModel" [fields]="field.fieldArray?.fieldGroup" [options]="options"></formly-form>
+          <formly-form [model]="modalModel" [fields]="field.fieldArray?.fieldGroup!" [options]="options!"></formly-form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="formmodal.dismiss()">

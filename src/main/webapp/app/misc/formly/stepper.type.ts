@@ -10,7 +10,7 @@ import { FieldType, FormlyFieldConfig } from '@ngx-formly/core';
         <formly-field [field]="step"></formly-field>
 
         <div class="btn-group d-flex justify-content-between">
-          <button matStepperPrevious [disabled]="index === 0" class="btn btn-secondary" type="button">Back</button>
+          <button matStepperPrevious [disabled]="index == 0" class="btn btn-secondary" type="button">Back</button>
 
           <button matStepperNext class="btn btn-primary" type="button" [disabled]="!isValid(step) || last">Next</button>
         </div>

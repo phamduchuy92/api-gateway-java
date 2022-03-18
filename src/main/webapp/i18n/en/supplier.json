@@ -1,0 +1,9 @@
+{
+  "supplier": {
+    "home": {
+      "title": "Suppliers",
+      "createLabel": "Create a new supplier",
+      "createOrEditLabel": "Create or edit a supplier"
+    }
+  }
+}

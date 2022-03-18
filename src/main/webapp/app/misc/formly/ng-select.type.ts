@@ -9,6 +9,7 @@ import { Subject, of, concat } from 'rxjs';
 import { FieldType } from '@ngx-formly/core';
 import { distinctUntilChanged, filter, debounceTime, switchMap, tap, catchError, map } from 'rxjs/operators';
 import * as _ from 'lodash';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'jhi-formly-field-ngselect',
@@ -16,7 +17,7 @@ import * as _ from 'lodash';
     <ng-select
       *ngIf="to.items || to.itemEndpoint"
       [items]="to.items"
-      [placeholder]="to.placeholder"
+      [placeholder]="to.placeholder!"
       [multiple]="to.multiple"
       [hideSelected]="to.hideSelected"
       [bindLabel]="to.val"
@@ -31,7 +32,7 @@ import * as _ from 'lodash';
     <ng-select
       *ngIf="!(to.items || to.itemEndpoint) && to.termPattern !== false"
       [items]="options$ | async"
-      [placeholder]="to.placeholder"
+      [placeholder]="to.placeholder!"
       [typeahead]="search$"
       [multiple]="to.multiple"
       [hideSelected]="to.hideSelected"
@@ -46,10 +47,10 @@ import * as _ from 'lodash';
     <ng-select
       *ngIf="!(to.items || to.itemEndpoint) && to.termPattern === false"
       [items]="options$ | async"
-      [placeholder]="to.placeholder"
+      [placeholder]="to.placeholder!"
       [typeahead]="search$"
       [multiple]="to.multiple"
-      (focus)="search$.next()"
+      (focus)="search$.next('')"
       (change)="onChange($event)"
       [hideSelected]="to.hideSelected"
       [loading]="isLoading"
@@ -62,6 +63,7 @@ import * as _ from 'lodash';
   `,
 })
 export class NgselectTypeComponent extends FieldType implements OnInit, OnDestroy {
+  formControl!: FormControl;
   defaultOptions = {
     wrappers: ['form-group'],
   };
@@ -188,9 +190,9 @@ export class NgselectTypeComponent extends FieldType implements OnInit, OnDestro
     return res;
   }
 
-  onChange(selectedValue): void {
+  onChange(selectedValue: any): void {
     if (this.to.store) {
-      this.options.formState[this.to.store] = selectedValue;
+      this.options!.formState[this.to.store] = selectedValue;
     }
     if (this.to.onChange && _.isFunction(this.to.onChange)) {
       this.to.onChange(this.field, selectedValue);

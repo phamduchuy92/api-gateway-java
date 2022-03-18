@@ -15,15 +15,15 @@ import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
       (change)="addFile($event)"
       class="form-control"
       [disabled]="to.disabled"
-      [hidden]="to.hidden == true ? true : false"
-      [multiple]="to.multiple == true ? true : false"
+      [hidden]="to.hidden === true ? true : false"
+      [multiple]="to.multiple === true ? true : false"
     />
     <ng-template *ngFor="let value of values">
       <a
         [href]="getFileSrc(value)"
         [ngClass]="to.className ? to.className : ''"
         target="_blank"
-        *ngIf="to.hidden == true"
+        *ngIf="to.hidden === true"
         [innerHTML]="value"
       ></a>
     </ng-template>
@@ -46,7 +46,7 @@ import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
           (click)="removeFile(i)"
           class="btn btn-danger btn-block"
           [disabled]="to.disabled"
-          [hidden]="to.hidden == true ? true : false"
+          [hidden]="to.hidden ? true : false"
         >
           <fa-icon icon="times"></fa-icon>&nbsp; Remove
         </button>
@@ -161,7 +161,7 @@ export class FileUploadTypeComponent extends FieldType implements OnInit {
         map(res => this.postProcess(res))
       )
       .subscribe(res => {
-        if (this.to.multiple == true) {
+        if (this.to.multiple === true) {
           this.formControl.setValue(this.formControl.value ? this.formControl.value.concat(res) : res);
         } else {
           this.formControl.setValue(_.toString(res));
@@ -176,10 +176,10 @@ export class FileUploadTypeComponent extends FieldType implements OnInit {
 
   // postProcess extract the file ID from the key
   postProcess(filesInfo: any): string[] {
-    if (filesInfo.every(e => _.isString(e))) {
+    if (filesInfo.every((e: any) => _.isString(e))) {
       return filesInfo;
     }
-    if (this.to.key && _.isString(this.to.key) && filesInfo.every(e => _.isString(e[this.to.key]))) {
+    if (this.to.key && _.isString(this.to.key) && filesInfo.every((e: { [x: string]: any }) => _.isString(e[this.to.key]))) {
       return _.map(filesInfo, this.to.key);
     }
     if (this.to.map) {
@@ -199,7 +199,7 @@ export class FileUploadTypeComponent extends FieldType implements OnInit {
   convertToArray(vals: any): void {
     if (_.isArray(vals)) {
       this.values = vals;
-    } else if (vals == null) {
+    } else if (vals === null) {
       this.values = [];
     } else {
       this.values = [vals];

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AbstractControl, FormControl } from '@angular/forms';
 import { FieldType } from '@ngx-formly/core';
 
 @Component({
@@ -9,4 +10,6 @@ import { FieldType } from '@ngx-formly/core';
     </div>
   `,
 })
-export class TimeTypeComponent extends FieldType {}
+export class TimeTypeComponent extends FieldType {
+  formControl!: FormControl;
+}

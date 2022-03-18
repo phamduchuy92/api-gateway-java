@@ -88,7 +88,7 @@ import { FormGroupWrapperComponent } from './formly/form-group.wrapper';
 import { FieldsetWrapperComponent } from './formly/fieldset.wrapper';
 // utils
 import { SafePipe } from './util/safe.pipe';
-import { PriceTypeComponent } from './formly/price.type';
+import { MaskTypeComponent } from './formly/mask.type';
 import { FileGridfsTypeComponent } from './formly/file-gridfs.type';
 
 @NgModule({
@@ -194,7 +194,7 @@ import { FileGridfsTypeComponent } from './formly/file-gridfs.type';
         { name: 'tree', component: TreeTypeComponent },
         { name: 'datetime', component: DatetimeTypeComponent },
         { name: 'library', component: LibraryTypeComponent },
-        { name: 'price', component: PriceTypeComponent },
+        { name: 'mask', component: MaskTypeComponent },
         { name: 'file-gridfs', component: FileGridfsTypeComponent },
       ],
     }),
@@ -310,7 +310,7 @@ import { FileGridfsTypeComponent } from './formly/file-gridfs.type';
     TreeTypeComponent,
     DatetimeTypeComponent,
     LibraryTypeComponent,
-    PriceTypeComponent,
+    MaskTypeComponent,
     FileGridfsTypeComponent,
   ],
   providers: [SafePipe],

@@ -1,0 +1,88 @@
+apiEndpoint: /services/ecommerce/api/products
+predicate: id
+ascending: false
+queryParams:
+columns:
+  - property: name
+    label: Name
+    sortBy: name
+    searchBy: name
+  - property: price
+    label: Price
+    sortBy: price
+    searchBy: price
+  - property: quantity
+    label: Quantity
+    sortBy: quantity
+    searchBy: quantity
+  - property: onSale
+    label: On Sale
+    sortBy: onSale
+    searchBy: onSale
+    options:
+      - label: True
+        value: true
+      - label: False
+        value: false
+fields:
+  - key: name
+    type: input
+    templateOptions:
+      label: Name
+      required: true
+  - fieldGroupClassName: row
+    fieldGroup:
+      - key: price
+        type: mask
+        className: col-md-2
+        templateOptions:
+          label: Price
+          mask: separator
+          addonRight:
+            text: đ
+      - key: quantity
+        type: input
+        className: col-md-2
+        templateOptions:
+          label: Quantity
+          type: number
+      - key: unit
+        type: select
+        className: col-md-2
+        templateOptions:
+          label: Unit
+          options:
+            - label: kg
+              value: kg
+            - label: bag
+              value: bag
+            - label: bottle
+              value: bottle
+            - label: box
+              value: box
+      - key: categoryId
+        type: ng-select
+        className: col-md-3
+        templateOptions:
+          label: Category
+          itemEndpoint: services/ecommerce/api/categories
+          key: id
+          val: name
+      - key: supplierId
+        type: ng-select
+        className: col-md-3
+        templateOptions:
+          label: Supplier
+          itemEndpoint: services/ecommerce/api/suppliers
+          key: id
+          val: name
+  - key: description
+    type: textarea
+    templateOptions:
+      label: Description
+      rows: 5
+  - key: shortDescription
+    type: textarea
+    templateOptions:
+      label: Short Description
+      rows: 3

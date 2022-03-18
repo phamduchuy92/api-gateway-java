@@ -173,8 +173,8 @@ export class DataComponent implements OnInit {
 
   // add search model and query params when navigating other page
   transition(): void {
-    this.router.navigate(['./'], {
-      relativeTo: this.activatedRoute.parent,
+    this.router.navigate([], {
+      // relativeTo: this.activatedRoute.parent,
       queryParams: _.assign(
         {
           page: this.page,
@@ -207,9 +207,9 @@ export class DataComponent implements OnInit {
       return _.map(val, v => _.get(this.reference, [col, v], v));
     } else if (_.isPlainObject(val)) {
       // support for tree type
-      if (_.map(plainToFlattenObject(val)).every(e => typeof e == 'boolean')) {
-        const parsedVal = _.filter(_.entries(plainToFlattenObject(val)), e => e.some(o => o == true));
-        let res = {};
+      if (_.map(plainToFlattenObject(val)).every(e => typeof e === 'boolean')) {
+        const parsedVal = _.filter(_.entries(plainToFlattenObject(val)), e => e.some(o => o === true));
+        const res = {};
         _.forEach(parsedVal, (v, k) => _.assign(res, _.set(res, v[0], 'tree')));
         return `<pre>${jsyaml.dump(res).replace(/: tree/g, '')}</pre>`;
       }
@@ -285,7 +285,7 @@ export class DataComponent implements OnInit {
       _.set(req, options.key, value);
       this.entityService
         .query(req, options.apiEndpoint)
-        .pipe(map(res => res.body || []))
+        .pipe(map(res => res.body ?? []))
         .subscribe(referenceData => {
           _.set(this.itemsEndpoint, key, []);
           _.forEach(referenceData, e => {

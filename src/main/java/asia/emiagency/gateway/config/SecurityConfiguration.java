@@ -100,6 +100,7 @@ public class SecurityConfiguration {
             .pathMatchers("/api/account/reset-password/finish").permitAll()
             .pathMatchers("/api/auth-info").permitAll()
             .pathMatchers("/api/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
+            .pathMatchers("/api/public/**").permitAll()
             .pathMatchers("/api/**").authenticated()
             // microfrontend resources are loaded by webpack without authentication, they need to be public
             .pathMatchers("/services/*/*.js").permitAll()
