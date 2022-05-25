@@ -31,8 +31,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/consul")
 public class ConsulDataResource {
 
-    private final Logger log = LoggerFactory.getLogger(ConsulDataResource.class);
-
     @Autowired
     ConsulClient consulClient;
 
@@ -107,20 +105,12 @@ public class ConsulDataResource {
      * @return
      */
     @GetMapping("/health")
-    public ResponseEntity<Object> getHealth() {
-        return ResponseEntity.ok(consulClient.getHealthChecksState(null).getValue());
+    public ResponseEntity<Object> getHealth(@RequestParam(required = false) QueryParams queryParams) {
+        return ResponseEntity.ok(consulClient.getHealthChecksState(queryParams).getValue());
     }
 
-    //
-    //	@GetMapping("/health/node/{node}")
-    //	public ResponseEntity<Object> getNodeHealth(@PathVariable String node, @RequestParam(required = false) QueryParams queryParams) {
-    //		log.debug("Available nodes: {}", consulClient.getNodes(null));
-    //		log.debug("Available nodes: {}", );
-    //		return ResponseEntity.ok(consulClient.getHealthChecksForNode(node, queryParams));
-    //	}
-    //
-    @GetMapping("/health/services/{service}")
-    public ResponseEntity<Object> getServiceHealth(@PathVariable String service, @RequestParam(required = false) QueryParams queryParams) {
-        return ResponseEntity.ok(consulClient.getHealthChecksForService(service, queryParams).getValue());
+    @GetMapping("/health/service/{node}")
+    public ResponseEntity<Object> getServiceHealth(@PathVariable String node, @RequestParam(required = false) QueryParams queryParams) {
+        return ResponseEntity.ok(consulClient.getHealthChecksForService(node, queryParams).getValue());
     }
 }

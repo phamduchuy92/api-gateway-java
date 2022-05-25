@@ -52,7 +52,7 @@ public class UploadResource {
      * Standard file upload.
      */
     @PostMapping
-    public Mono<ResponseEntity<List<String>>> uploadHandler(@RequestHeader HttpHeaders headers, @RequestBody Flux<ByteBuffer> body) {
+    public Mono<ResponseEntity<String>> uploadHandler(@RequestHeader HttpHeaders headers, @RequestBody Flux<ByteBuffer> body) {
         long length = headers.getContentLength();
         if (length < 0) {
             throw Problem.builder().withStatus(Status.BAD_REQUEST).withDetail("required header missing: Content-Length").build();
@@ -85,7 +85,7 @@ public class UploadResource {
             .fromFuture(future)
             .map(response -> {
                 checkResult(response);
-                return ResponseEntity.status(HttpStatus.CREATED).body(List.of(fileKey));
+                return ResponseEntity.status(HttpStatus.CREATED).body(fileKey);
             });
     }
 
